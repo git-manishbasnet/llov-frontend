@@ -55,7 +55,7 @@ const App = () => {
     const newEntry = { yourName, partnerName, percentage };
 
     try {
-      await axios.post("http://localhost:5000/api/entries", newEntry);
+      await axios.post("https://llov-backend.onrender.com/api/entries", newEntry);
       setIsSubmitted(true);
     } catch (error) {
       setError("Something went wrong. Please try again!");

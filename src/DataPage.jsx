@@ -39,7 +39,7 @@ const DataPage = () => {
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/entries");
+        const response = await axios.get("https://llov-backend.onrender.com/api/entries");
         setEntries(response.data);
       } catch (error) {
         console.error("Error fetching entries:", error);
