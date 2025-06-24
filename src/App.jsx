@@ -195,7 +195,7 @@ const App = () => {
               to="/data"
               className="block mt-2 text-fuchsia-100 hover:text-white hover:underline font-semibold transition-all text-lg"
             >
-              <span role="img" aria-label="data">📊</span> View Collected Data
+              {/* <span role="img" aria-label="data">📊</span> View Collected Data */}
             </Link>
           </div>
         </div>
