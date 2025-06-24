@@ -41,6 +41,21 @@ const App = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [verified, setVerified] = useState(false);
+  const [password, setPassword] = useState("");
+
+if (!verified) {
+  return (
+    <form onSubmit={(e) => {
+      e.preventDefault();
+      if (password === "your-secret-code") setVerified(true);
+    }}>
+      <input type="password" onChange={(e) => setPassword(e.target.value)} />
+      <button>Enter</button>
+    </form>
+  );
+}
+
 
   const calculateLove = async () => {
     setError("");
