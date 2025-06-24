@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import DataPage from "./DataPage";
 
@@ -41,21 +41,6 @@ const App = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-//   const [verified, setVerified] = useState(false);
-//   const [password, setPassword] = useState("");
-
-// if (!verified) {
-//   return (
-//     <form onSubmit={(e) => {
-//       e.preventDefault();
-//       if (password === "your-secret-code") setVerified(true);
-//     }}>
-//       <input type="password" onChange={(e) => setPassword(e.target.value)} />
-//       <button>Enter</button>
-//     </form>
-//   );
-// }
-
 
   const calculateLove = async () => {
     setError("");
@@ -157,14 +142,9 @@ const App = () => {
                   </div>
                 ) : (
                   <div className="w-full max-w-md mx-auto p-8 rounded-3xl shadow-2xl bg-white/30 backdrop-blur-2xl border border-white/40 mt-8 text-center animate-fade-in">
-                    <h2 className="text-3xl font-bold text-pink-500 mb-4 flex items-center justify-center gap-2 animate-slide-down">
-                      {/* <span role="img" aria-label="prank">😜</span> Sorry! You got pranked! */}
-                    </h2>
-                    <p className="text-lg text-gray-700 mb-2">
-                      {/* Your Partner's name is sent to Manish */}
-                    </p>
+                    <h2 className="text-3xl font-bold text-pink-500 mb-4 flex items-center justify-center gap-2 animate-slide-down"></h2>
                     <p className="text-lg text-red-400 mb-4 font-bold mt-4">
-                      {yourName} <span className="text-2xl">❤️</span> {partnerName}
+                      {yourName} <span className="text-2xl animate-bounce-slow">❤️</span> {partnerName}
                     </p>
                     <p className="text-lg text-gray-700">
                       Your love percentage is{" "}
@@ -182,7 +162,7 @@ const App = () => {
                 )
               }
             />
-            <Route path="/data" element={<DataPage />} />
+            <Route path="/data" element={<ProtectedDataPage />} />
           </Routes>
           <div className="mt-10 flex flex-col items-center gap-2 z-10">
             <p className="text-white text-sm opacity-90 drop-shadow">
@@ -191,12 +171,7 @@ const App = () => {
             <p className="text-white text-sm opacity-80 drop-shadow">
               Designed By Manish Basnet
             </p>
-            <Link
-              to="/data"
-              className="block mt-2 text-fuchsia-100 hover:text-white hover:underline font-semibold transition-all text-lg"
-            >
-              {/* <span role="img" aria-label="data">📊</span> View Collected Data */}
-            </Link>
+            {/* The link to /data is intentionally hidden */}
           </div>
         </div>
         {/* Animations */}
@@ -237,6 +212,54 @@ const App = () => {
       </div>
     </Router>
   );
+};
+
+// Password-protected wrapper for DataPage
+const ProtectedDataPage = () => {
+  const [verified, setVerified] = useState(false);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  // Change this to your secret password
+  const SECRET = "your-secret-code";
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === SECRET) {
+      setVerified(true);
+      setError("");
+    } else {
+      setError("Incorrect password!");
+    }
+  };
+
+  if (!verified) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-500 via-fuchsia-500 to-orange-400">
+        <div className="bg-white/80 p-8 rounded-xl shadow-xl">
+          <h2 className="text-2xl font-bold mb-4 text-center">Enter Password</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              className="border px-4 py-2 rounded mb-4 w-full"
+              placeholder="Password"
+            />
+            {error && <div className="text-red-500 mb-2">{error}</div>}
+            <button
+              type="submit"
+              className="bg-pink-500 text-white px-4 py-2 rounded w-full"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  return <DataPage />;
 };
 
 export default App;
