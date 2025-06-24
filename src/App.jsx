@@ -221,7 +221,7 @@ const ProtectedDataPage = () => {
   const [error, setError] = useState("");
 
   // Change this to your secret password
-  const SECRET = "your-secret-code";
+  const SECRET = "mbc123";
 
   const handleSubmit = (e) => {
     e.preventDefault();
