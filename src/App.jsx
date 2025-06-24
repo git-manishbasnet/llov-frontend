@@ -191,12 +191,12 @@ if (!verified) {
             <p className="text-white text-sm opacity-80 drop-shadow">
               Designed By Manish Basnet
             </p>
-            {/* <Link
+            <Link
               to="/data"
               className="block mt-2 text-fuchsia-100 hover:text-white hover:underline font-semibold transition-all text-lg"
             >
               <span role="img" aria-label="data">📊</span> View Collected Data
-            </Link> */}
+            </Link>
           </div>
         </div>
         {/* Animations */}
